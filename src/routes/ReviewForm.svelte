@@ -212,8 +212,8 @@
 
 	.submit-button {
 		flex: 1;
-		background: var(--buttonBackgroundColor);
-		color: var(--buttonForegroundColor);
+		background: var(--buttonBackgroundColor, white);
+		color: var(--buttonForegroundColor, black);
 		border: none;
 		padding: 0.875rem 1.5rem;
 		border-radius: 6px;

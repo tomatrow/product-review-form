@@ -41,14 +41,21 @@ Please attach an image for your review
 
 		window.location.href = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
 	}
+
+	function cssVars(vars: Record<string, string | null | undefined>) {
+		return Object.entries(vars)
+			.filter(([, value]) => value != null)
+			.map(([key, value]) => `--${key}:${value};`)
+			.join("")
+	}
+
+	let { paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor } = $derived(
+		reviewSectionData?.settings ?? {}
+	)
 </script>
 
 <section
-	style="--paddingTop: {reviewSectionData?.settings?.paddingTop ??
-		0}; --paddingBottom: {reviewSectionData?.settings?.paddingBottom ??
-		0};--buttonForegroundColor: {reviewSectionData?.settings?.buttonForegroundColor ??
-		'black'}; --buttonBackgroundColor: {reviewSectionData?.settings?.buttonBackgroundColor ??
-		'white'}"
+	style={cssVars({ paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor })}
 >
 	<h3>{reviewSectionData?.settings?.gridTitle ?? "Review Grid"}</h3>
 
@@ -81,8 +88,8 @@ Please attach an image for your review
 
 <style>
 	section {
-		padding-top: var(--paddingTop);
-		padding-bottom: var(--paddingBottom);
+		padding-top: var(--paddingTop, 2rem);
+		padding-bottom: var(--paddingBottom, 2rem);
 	}
 
 	h3 {
@@ -93,8 +100,8 @@ Please attach an image for your review
 		bottom: 2rem;
 		right: 2rem;
 		margin: auto;
-		background: var(--buttonBackgroundColor);
-		color: var(--buttonForegroundColor);
+		background: var(--buttonBackgroundColor, white);
+		color: var(--buttonForegroundColor, black);
 		border: none;
 		padding: 1rem 1.5rem;
 		border-radius: 50px;
