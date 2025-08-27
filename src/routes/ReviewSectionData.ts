@@ -1,6 +1,19 @@
 import * as v from "valibot"
 
 export const ReviewSectionDataSchema = v.object({
+	settings: v.optional(
+		v.partial(
+			v.object({
+				email: v.string(),
+				gridTitle: v.string(),
+				formTitle: v.string(),
+				paddingTop: v.string(),
+				paddingBottom: v.string(),
+				buttonBackgroundColor: v.string(),
+				buttonForegroundColor: v.string()
+			})
+		)
+	),
 	blocks: v.array(
 		v.object({
 			id: v.string(),

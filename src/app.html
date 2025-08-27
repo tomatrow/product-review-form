@@ -5,12 +5,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
+		<!-- BEGIN_EMBEDDED_SVELTEKIT_APP -->
 		<div style="display: contents" data-sveltekit-preload-data="hover">
-			%sveltekit.body%%sveltekit.head%
+			%sveltekit.head%%sveltekit.body%
 		</div>
+		<!-- END_EMBEDDED_SVELTEKIT_APP -->
+
+		<!-- the script tag below is an example of what's rendered by shopify liquid -->
 		<script type="application/json" class="review-section-data">
 			{
-				"settings": "What Our Customers Say",
+				"settings": {
+					"gridTitle": "What Our Customers Say",
+					"formTitle": "Write a Review",
+					"buttonForegroundColor": "red",
+					"buttonBackgroundColor": "blue",
+					"paddingTop": "2rem",
+					"paddingBottom": "2rem"
+				},
 				"blocks": [
 					{
 						"id": "review_87jjef",

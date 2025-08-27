@@ -13,10 +13,10 @@
 	{#each reviewSectionData.blocks as block (block.id)}
 		{#if block.settings.image}
 			<div class="review-item">
-				<img 
-					src={normalizeUrl(block.settings.image)} 
+				<img
+					src={normalizeUrl(block.settings.image)}
 					alt={block.settings.name}
-					class="review-image" 
+					class="review-image"
 				/>
 				<div class="review-overlay">
 					<div class="review-content">
@@ -38,9 +38,11 @@
 <style>
 	.review-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 		gap: 1rem;
 		padding: 1rem;
+		max-width: 1000px;
+		margin: auto;
 	}
 
 	.review-item {
@@ -121,7 +123,9 @@
 	.description {
 		color: #f3f4f6;
 		line-height: 1.5;
-		font-size: 0.9rem;
+		font-size: 1.1rem;
+		max-height: 6rem;
+		overflow-y: scroll;
 	}
 
 	@media (max-width: 768px) {

@@ -1,13 +1,18 @@
-<script lang="ts">
-	interface ReviewInputData {
+<script lang="ts" module>
+	export interface ReviewInputData {
 		name: string
 		rating: number
 		description: string
 	}
+</script>
 
-	let { onsubmit, oncancel }: { 
+<script lang="ts">
+	let {
+		onsubmit,
+		oncancel
+	}: {
 		onsubmit?(reviewInputData: ReviewInputData): void
-		oncancel?(): void 
+		oncancel?(): void
 	} = $props()
 
 	let name = $state<string>()
@@ -72,12 +77,8 @@
 		</div>
 
 		<div class="button-group">
-			<button type="button" onclick={() => oncancel?.()} class="cancel-button">
-				Cancel
-			</button>
-			<button type="submit" class="submit-button"> 
-				Submit Review 
-			</button>
+			<button type="button" onclick={() => oncancel?.()} class="cancel-button"> Cancel </button>
+			<button type="submit" class="submit-button"> Submit Review </button>
 		</div>
 	</div>
 </form>
@@ -94,6 +95,7 @@
 		justify-content: center;
 		padding: 1rem;
 		backdrop-filter: blur(4px);
+		z-index: 1000;
 	}
 
 	.form-container {
@@ -210,8 +212,8 @@
 
 	.submit-button {
 		flex: 1;
-		background: #10b981;
-		color: white;
+		background: var(--buttonBackgroundColor);
+		color: var(--buttonForegroundColor);
 		border: none;
 		padding: 0.875rem 1.5rem;
 		border-radius: 6px;
@@ -224,7 +226,6 @@
 	}
 
 	.submit-button:hover {
-		background: #059669;
 		transform: translateY(-1px);
 	}
 
