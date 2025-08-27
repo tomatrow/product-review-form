@@ -1,0 +1,20 @@
+## specify a read-only file (can be used multiple times)
+# read:
+# - scripts/conventions.md
+# - static/simple.css
+# - scripts/svelte-distilled.txt
+
+## Use colors suitable for a dark terminal background (default: False)
+dark-mode: true
+
+## Enable/disable auto commit of LLM changes (default: True)
+auto-commits: false
+
+## Suggested number of tokens to use for repo map, use 0 to disable
+map-tokens: 25000
+
+## Enable/disable commits when repo is found dirty (default: True)
+dirty-commits: false
+
+## Specify the model to use for the main chat
+model: vertex_ai/claude-sonnet-4@20250514
