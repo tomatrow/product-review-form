@@ -5,7 +5,10 @@
 		description: string
 	}
 
-	let { onsubmit }: { onsubmit?(reviewInputData: ReviewInputData): void } = $props()
+	let { onsubmit, oncancel }: { 
+		onsubmit?(reviewInputData: ReviewInputData): void
+		oncancel?(): void 
+	} = $props()
 
 	let name = $state<string>()
 	let description = $state<string>()
@@ -26,13 +29,13 @@
 >
 	<div class="form-container">
 		<h2 class="form-title">Write a Review</h2>
-		
+
 		<div class="form-group">
 			<label for="name" class="form-label">Your Name</label>
-			<input 
+			<input
 				id="name"
-				type="text" 
-				bind:value={name} 
+				type="text"
+				bind:value={name}
 				placeholder="Enter your name"
 				class="form-input"
 				required
@@ -42,12 +45,12 @@
 		<div class="form-group">
 			<label for="rating" class="form-label">Rating</label>
 			<div class="rating-input">
-				<input 
+				<input
 					id="rating"
-					type="number" 
-					bind:value={rating} 
-					min="1" 
-					max="5" 
+					type="number"
+					bind:value={rating}
+					min="1"
+					max="5"
 					placeholder="5"
 					class="form-input rating-number"
 					required
@@ -58,7 +61,7 @@
 
 		<div class="form-group">
 			<label for="description" class="form-label">Your Review</label>
-			<textarea 
+			<textarea
 				id="description"
 				bind:value={description}
 				placeholder="Tell us about your experience..."
@@ -68,9 +71,14 @@
 			></textarea>
 		</div>
 
-		<button type="submit" class="submit-button">
-			Submit Review
-		</button>
+		<div class="button-group">
+			<button type="button" onclick={() => oncancel?.()} class="cancel-button">
+				Cancel
+			</button>
+			<button type="submit" class="submit-button"> 
+				Submit Review 
+			</button>
+		</div>
 	</div>
 </form>
 
@@ -94,7 +102,9 @@
 		padding: 2rem;
 		width: 100%;
 		max-width: 500px;
-		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
 		max-height: 90vh;
 		overflow-y: auto;
 	}
@@ -125,7 +135,9 @@
 		border: 1px solid #d1d5db;
 		border-radius: 6px;
 		font-size: 1rem;
-		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
 		box-sizing: border-box;
 	}
 
@@ -160,7 +172,9 @@
 		font-family: inherit;
 		resize: vertical;
 		min-height: 100px;
-		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
 		box-sizing: border-box;
 	}
 
@@ -170,8 +184,32 @@
 		box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 	}
 
+	.button-group {
+		display: flex;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.cancel-button {
+		flex: 1;
+		background: #f3f4f6;
+		color: #374151;
+		border: 1px solid #d1d5db;
+		padding: 0.875rem 1.5rem;
+		border-radius: 6px;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.cancel-button:hover {
+		background: #e5e7eb;
+		border-color: #9ca3af;
+	}
+
 	.submit-button {
-		width: 100%;
+		flex: 1;
 		background: #10b981;
 		color: white;
 		border: none;
@@ -180,7 +218,9 @@
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
-		transition: background-color 0.2s ease, transform 0.1s ease;
+		transition:
+			background-color 0.2s ease,
+			transform 0.1s ease;
 	}
 
 	.submit-button:hover {

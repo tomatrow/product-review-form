@@ -45,13 +45,35 @@
 </button>
 
 {#if showing}
-	<ReviewForm />
+	<ReviewForm
+		onsubmit={(reviewData) => {
+			showing = false
+
+			const emailSubject = `New Product Review from ${reviewData.name}`
+			const emailBody = `
+New Product Review Submission
+
+Name: ${reviewData.name}
+Rating: ${reviewData.rating}/5 stars
+Review: ${reviewData.description}
+
+Please attach an image for your review
+`.trim()
+
+			const mailtoLink = `mailto:tomatrow@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
+			window.location.href = mailtoLink
+		}}
+		oncancel={() => {
+			showing = false
+		}}
+	/>
 {/if}
 
 <style>
 	.review-button {
 		bottom: 2rem;
 		right: 2rem;
+		margin: auto;
 		background: linear-gradient(135deg, #10b981, #059669);
 		color: white;
 		border: none;
