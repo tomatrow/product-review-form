@@ -11,7 +11,7 @@ const config = {
 		embedded: true,
 		output: { bundleStrategy: "inline" },
 		router: { type: "hash" },
-		inlineStyleThreshold: 100
+		inlineStyleThreshold: Infinity
 	}
 }
 
