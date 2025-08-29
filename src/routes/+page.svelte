@@ -5,6 +5,7 @@
 	import ReviewGrid from "./ReviewGrid.svelte"
 	import { ReviewSectionDataSchema, type ReviewSectionData } from "./ReviewSectionData"
 
+	let container = $state<HTMLElement>()
 	let showing = $state(false)
 	let reviewSectionData = $state.raw<ReviewSectionData>()
 
@@ -27,17 +28,20 @@
 		}
 	})
 
+	let sectionCssVars = $derived.by(() => {
+		if (!reviewSectionData?.settings) return
+		const { paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor } =
+			reviewSectionData.settings
+
+		return cssVars({ paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor })
+	})
+
 	function cssVars(vars: Record<string, string | null | undefined>) {
 		return Object.entries(vars)
 			.filter(([, value]) => value != null)
 			.map(([key, value]) => `--${key}:${value};`)
 			.join("")
 	}
-
-	let { paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor } = $derived(
-		reviewSectionData?.settings ?? {}
-	)
-	let container = $state<HTMLElement>()
 
 	function submitReview(email: string, { name, rating, description }: ReviewInputData) {
 		const emailSubject = `New Product Review from ${name}`
@@ -63,10 +67,7 @@
 	}
 </script>
 
-<section
-	bind:this={container}
-	style={cssVars({ paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor })}
->
+<section bind:this={container} style={sectionCssVars}>
 	<h3>{reviewSectionData?.settings?.gridTitle ?? "Review Grid"}</h3>
 
 	{#if reviewSectionData}
