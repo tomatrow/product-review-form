@@ -3,6 +3,8 @@
 
 	let { reviewSectionData }: { reviewSectionData: ReviewSectionData } = $props()
 
+	let filteredBlocks = $derived(reviewSectionData.blocks.filter((block) => block.settings.image))
+
 	function normalizeUrl(url: string) {
 		if (url.startsWith("//")) return `https:${url}`
 		return url
@@ -10,28 +12,26 @@
 </script>
 
 <div class="review-grid">
-	{#each reviewSectionData.blocks as block (block.id)}
-		{#if block.settings.image}
-			<div class="review-item">
-				<img
-					src={normalizeUrl(block.settings.image)}
-					alt={block.settings.name}
-					class="review-image"
-				/>
-				<div class="review-overlay">
-					<div class="review-content">
-						<h5 class="review-name">{block.settings.name}</h5>
-						<div class="rating">
-							<span class="rating-score">{block.settings.rating}</span>
-							<span class="rating-total">/5</span>
-						</div>
-						<div class="description">
-							{@html block.settings.description}
-						</div>
+	{#each filteredBlocks as block (block.id)}
+		<div class="review-item">
+			<img
+				src={normalizeUrl(block.settings.image!)}
+				alt={block.settings.name}
+				class="review-image"
+			/>
+			<div class="review-overlay">
+				<div class="review-content">
+					<h5 class="review-name">{block.settings.name}</h5>
+					<div class="rating">
+						<span class="rating-score">{block.settings.rating}</span>
+						<span class="rating-total">/5</span>
+					</div>
+					<div class="description">
+						{@html block.settings.description}
 					</div>
 				</div>
 			</div>
-		{/if}
+		</div>
 	{/each}
 </div>
 
