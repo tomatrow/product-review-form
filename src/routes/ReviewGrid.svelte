@@ -3,7 +3,25 @@
 
 	let { reviewSectionData }: { reviewSectionData: ReviewSectionData } = $props()
 
-	let filteredBlocks = $derived(reviewSectionData.blocks.filter((block) => block.settings.image))
+	function getMonthlyItems<T>(fullList: T[], itemsPerMonth: number) {
+		const currentMonth = new Date().getMonth() // 0-11
+		const startIndex = (currentMonth * itemsPerMonth) % fullList.length
+		const endIndex = startIndex + itemsPerMonth
+
+		// Handle wrapping around the list
+		if (endIndex <= fullList.length) {
+			return fullList.slice(startIndex, endIndex)
+		} else {
+			return [...fullList.slice(startIndex), ...fullList.slice(0, endIndex - fullList.length)]
+		}
+	}
+
+	let filteredBlocks = $derived(
+		getMonthlyItems(
+			reviewSectionData.blocks.filter((block) => block.settings.image),
+			reviewSectionData.settings?.monthlyRotationCount ?? 3
+		)
+	)
 
 	function normalizeUrl(url: string) {
 		if (url.startsWith("//")) return `https:${url}`
