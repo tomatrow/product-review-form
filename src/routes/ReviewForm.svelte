@@ -77,8 +77,8 @@
 		</div>
 
 		<div class="button-group">
-			<button type="button" onclick={() => oncancel?.()} class="cancel-button"> Cancel </button>
-			<button type="submit" class="submit-button"> Submit Review </button>
+			<button type="button" onclick={() => oncancel?.()} class="cancel-button">Cancel</button>
+			<button type="submit" class="submit-button">Submit Review</button>
 		</div>
 	</div>
 </form>
@@ -223,6 +223,7 @@
 		transition:
 			background-color 0.2s ease,
 			transform 0.1s ease;
+		text-decoration: none;
 	}
 
 	.submit-button:hover {

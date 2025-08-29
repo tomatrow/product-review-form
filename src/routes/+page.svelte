@@ -27,21 +27,6 @@
 		}
 	})
 
-	function sendReview(email: string, reviewData: ReviewInputData) {
-		const emailSubject = `New Product Review from ${reviewData.name}`
-		const emailBody = `
-New Product Review Submission
-
-Name: ${reviewData.name}
-Rating: ${reviewData.rating}/5 stars
-Review: ${reviewData.description}
-
-Please attach an image for your review
-	`.trim()
-
-		window.location.href = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
-	}
-
 	function cssVars(vars: Record<string, string | null | undefined>) {
 		return Object.entries(vars)
 			.filter(([, value]) => value != null)
@@ -52,9 +37,34 @@ Please attach an image for your review
 	let { paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor } = $derived(
 		reviewSectionData?.settings ?? {}
 	)
+	let container = $state<HTMLElement>()
+
+	function submitReview(email: string, { name, rating, description }: ReviewInputData) {
+		const emailSubject = `New Product Review from ${name}`
+		const emailBody = `🌟 New Product Review Submission
+
+👤 Reviewer Name: ${name}
+⭐ Reviewer Rating: ${"⭐".repeat(rating)}${"☆".repeat(5 - rating)}
+💭 Review: ${description}
+
+		
+📎📎📎 Next Step: Please attach an image for your review 📎📎📎
+
+
+
+`
+
+		const href = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`
+		const link = document.createElement("a")
+		link.href = href
+		container?.append(link)
+		link.click()
+		link.remove()
+	}
 </script>
 
 <section
+	bind:this={container}
 	style={cssVars({ paddingTop, paddingBottom, buttonForegroundColor, buttonBackgroundColor })}
 >
 	<h3>{reviewSectionData?.settings?.gridTitle ?? "Review Grid"}</h3>
@@ -75,11 +85,13 @@ Please attach an image for your review
 	{#if showing}
 		<ReviewForm
 			onsubmit={(reviewData) => {
-				showing = false
+				if (!container) return
 				const email = reviewSectionData?.settings?.email
 				if (!email) return
 
-				sendReview(email, reviewData)
+				showing = false
+
+				submitReview(email, reviewData)
 			}}
 			oncancel={() => (showing = false)}
 		/>
