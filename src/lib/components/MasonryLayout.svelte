@@ -14,7 +14,7 @@
 	} & HTMLAttributes<HTMLDivElement> = $props()
 
 	let columns = $derived.by(() => {
-		let columns: T[][] = Array(columnCount).fill([])
+		let columns: T[][] = Array.from({ length: columnCount }).map(() => [])
 
 		if (!columns.length) return []
 
