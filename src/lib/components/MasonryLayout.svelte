@@ -5,16 +5,20 @@
 	let {
 		items,
 		cell,
+		columnCount = 3,
 		...rest
 	}: {
 		items: T[]
 		cell: Snippet<[item: T, columnIndex: number, columnItems: T[], items: T[]]>
+		columnCount?: number
 	} & HTMLAttributes<HTMLDivElement> = $props()
 
 	let columns = $derived.by(() => {
-		let columns: [column1: T[], column2: T[], column3: T[]] = [[], [], []]
+		let columns: T[][] = Array(columnCount).fill([])
 
-		for (let i = 0; i < items.length; i++) columns[i % 3].push(items[i])
+		if (!columns.length) return []
+
+		for (let i = 0; i < items.length; i++) columns[i % columnCount].push(items[i])
 
 		return columns
 	})
