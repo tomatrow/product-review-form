@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { MasonryLayout } from "$lib"
 	import { type ReviewSectionData } from "./ReviewSectionData"
 
 	let { reviewSectionData }: { reviewSectionData: ReviewSectionData } = $props()
@@ -29,8 +30,8 @@
 	}
 </script>
 
-<div class="review-grid">
-	{#each filteredBlocks as block (block.id)}
+<MasonryLayout items={filteredBlocks} columnCount={reviewSectionData.settings?.columnCount}>
+	{#snippet cell(block)}
 		<div class="review-item">
 			<img
 				src={normalizeUrl(block.settings.image!)}
@@ -50,37 +51,35 @@
 				</div>
 			</div>
 		</div>
-	{/each}
-</div>
+	{/snippet}
+</MasonryLayout>
 
 <style>
-	.review-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-		gap: 1rem;
-		padding: 1rem;
-		max-width: 1000px;
-		margin: auto;
-	}
-
 	.review-item {
 		position: relative;
-		aspect-ratio: 1;
-		overflow: hidden;
 		border-radius: 8px;
 		cursor: pointer;
 		transition: transform 0.2s ease;
-	}
 
-	.review-item:hover {
-		transform: scale(1.02);
+		&:hover {
+			.review-overlay {
+				opacity: 1;
+			}
+
+			.review-image {
+				filter: brightness(0.7);
+			}
+		}
 	}
 
 	.review-image {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
 		transition: filter 0.3s ease;
+
+		&:hover {
+			transform: scale(1.02);
+		}
 	}
 
 	.review-overlay {
@@ -98,18 +97,12 @@
 		padding: 1.5rem;
 	}
 
-	.review-item:hover .review-overlay {
-		opacity: 1;
-	}
-
-	.review-item:hover .review-image {
-		filter: brightness(0.7);
-	}
-
 	.review-content {
 		text-align: center;
 		color: white;
 		max-width: 100%;
+		overflow-y: scroll;
+		max-height: 100%;
 	}
 
 	.review-name {
@@ -142,17 +135,9 @@
 		color: #f3f4f6;
 		line-height: 1.5;
 		font-size: 1.1rem;
-		max-height: 6rem;
-		overflow-y: scroll;
 	}
 
 	@media (max-width: 768px) {
-		.review-grid {
-			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-			gap: 0.5rem;
-			padding: 0.5rem;
-		}
-
 		.review-overlay {
 			padding: 1rem;
 		}
