@@ -93,9 +93,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 1rem;
 		backdrop-filter: blur(4px);
 		z-index: 1000;
+
+		@media (min-width: 640px) {
+			padding: 1rem;
+		}
 	}
 
 	.form-container {
