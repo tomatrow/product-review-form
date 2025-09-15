@@ -80,7 +80,7 @@
 				d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
 			/>
 		</svg>
-		{reviewSectionData?.settings?.formTitle ?? "Write Review"}
+		<span>{reviewSectionData?.settings?.formTitle ?? "Write Review"}</span>
 	</button>
 
 	{#if showing}
@@ -113,12 +113,13 @@
 		bottom: 2rem;
 		right: 2rem;
 		margin: auto;
+		margin-top: 1rem;
 		background: var(--buttonBackgroundColor, white);
 		color: var(--buttonForegroundColor, black);
 		border: none;
 		padding: 1rem 1.5rem;
 		border-radius: 50px;
-		font-size: 1rem;
+		font-size: 1.5rem;
 		font-weight: 600;
 		cursor: pointer;
 		display: flex;
@@ -127,15 +128,18 @@
 		box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
 		transition: all 0.3s ease;
 		z-index: 1000;
-	}
+		transform-origin: center center;
+		justify-content: center;
+		min-width: 20rem;
 
-	.review-button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
-	}
+		&:hover {
+			transform: translateY(-2px) scale(1.2);
+			box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+		}
 
-	.review-button:active {
-		transform: translateY(0);
+		&:active {
+			transform: translateY(0);
+		}
 	}
 
 	.button-icon {
@@ -148,7 +152,8 @@
 			bottom: 1rem;
 			right: 1rem;
 			padding: 0.875rem 1.25rem;
-			font-size: 0.9rem;
+			font-size: 1.2rem;
+			width: 80%;
 		}
 
 		.button-icon {
