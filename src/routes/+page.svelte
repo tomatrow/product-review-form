@@ -100,6 +100,16 @@
 </section>
 
 <style>
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-6px);
+		}
+	}
+
 	section {
 		padding-top: var(--paddingTop, 2rem);
 		padding-bottom: var(--paddingBottom, 2rem);
@@ -131,10 +141,12 @@
 		transform-origin: center center;
 		justify-content: center;
 		min-width: 20rem;
+		animation: float 2.33s ease-in-out infinite;
 
 		&:hover {
 			transform: translateY(-2px) scale(1.2);
 			box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+			animation-play-state: paused;
 		}
 
 		&:active {
