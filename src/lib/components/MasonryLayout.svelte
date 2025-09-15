@@ -38,7 +38,7 @@
 	.masonry {
 		--gutter: 0.25em;
 		--flow-space: var(--gutter);
-		--switcher-target-container-width: 28rem;
+		--switcher-target-container-width: 600px;
 
 		:global {
 			.flow > * + * {
