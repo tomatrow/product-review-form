@@ -30,7 +30,11 @@
 	}
 </script>
 
-<MasonryLayout items={filteredBlocks} columnCount={reviewSectionData.settings?.columnCount}>
+<MasonryLayout
+	--switcher-target-container-width={reviewSectionData.settings?.columnBreakPoint ?? "600px"}
+	items={filteredBlocks}
+	columnCount={reviewSectionData.settings?.columnCount}
+>
 	{#snippet cell(block)}
 		<div class="review-item">
 			<img

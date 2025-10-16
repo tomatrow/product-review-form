@@ -22,9 +22,23 @@
 
 		return columns
 	})
+
+	// this ensures switcher-target-container-width works as expected
+	let targetMultiplier = $derived.by(() => {
+		if (columnCount === 2) {
+			return 3 / 2
+		} else {
+			return 2
+		}
+	})
 </script>
 
-<div class="masonry wrapper switcher" {...rest}>
+<div
+	class="masonry wrapper switcher"
+	style:--column-count={columnCount}
+	style:--target-multiplier={targetMultiplier}
+	{...rest}
+>
 	{#each columns as columnItems}
 		<div class="flow">
 			{#each columnItems as item, columnIndex}
@@ -38,7 +52,6 @@
 	.masonry {
 		--gutter: 0.25em;
 		--flow-space: var(--gutter);
-		--switcher-target-container-width: 600px;
 
 		:global {
 			.flow > * + * {
@@ -58,10 +71,12 @@
 		flex-wrap: wrap;
 		gap: var(--gutter, 1em);
 		align-items: var(--switcher-vertical-alignment, flex-start);
+	}
 
-		& > * {
-			flex-grow: 1;
-			flex-basis: calc((var(--switcher-target-container-width, 40rem) - 100%) * 999);
-		}
+	.switcher > * {
+		flex-grow: 1;
+		flex-basis: calc(
+			(var(--switcher-target-container-width, 40rem) * var(--target-multiplier) - 100%) * 999
+		);
 	}
 </style>

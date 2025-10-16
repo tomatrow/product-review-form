@@ -5,6 +5,7 @@ export const ReviewSectionDataSchema = v.object({
 		v.object({
 			monthlyRotationCount: v.nullish(v.number(), 6),
 			columnCount: v.nullish(v.number(), 3),
+			columnBreakPoint: v.nullish(v.string(), "600px"),
 			email: v.nullish(v.string()),
 			gridTitle: v.nullish(v.string(), "Reviews"),
 			formTitle: v.nullish(v.string(), "Write Review"),
