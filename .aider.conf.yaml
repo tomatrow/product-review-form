@@ -17,4 +17,4 @@ map-tokens: 25000
 dirty-commits: false
 
 ## Specify the model to use for the main chat
-model: vertex_ai/claude-sonnet-4@20250514
+model: vertex_ai/claude-sonnet-4-5
