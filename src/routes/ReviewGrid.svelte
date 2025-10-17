@@ -69,6 +69,8 @@
 		container: review-item / inline-size;
 
 		&:hover {
+			transform: translateY(-8px);
+
 			.review-overlay {
 				opacity: 1;
 			}
