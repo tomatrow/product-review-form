@@ -34,6 +34,7 @@
 	--switcher-target-container-width={reviewSectionData.settings?.columnBreakPoint ?? "600px"}
 	--smallCardFontSize={reviewSectionData.settings?.smallCardFontSize ?? "16px"}
 	--largeCardFontSize={reviewSectionData.settings?.largeCardFontSize ?? "24px"}
+	--cardFontFamily={reviewSectionData.settings?.cardFont.family}
 	items={filteredBlocks}
 	columnCount={reviewSectionData.settings?.columnCount}
 >
@@ -67,6 +68,7 @@
 		cursor: pointer;
 		transition: transform 0.2s ease;
 		container: review-item / inline-size;
+		font-family: var(--cardFontFamily);
 
 		&:hover {
 			transform: translateY(-8px);

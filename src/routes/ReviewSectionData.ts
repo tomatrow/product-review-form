@@ -14,7 +14,25 @@ export const ReviewSectionDataSchema = v.object({
 			paddingTop: v.nullish(v.string(), "0"),
 			paddingBottom: v.nullish(v.string(), "0"),
 			buttonBackgroundColor: v.nullish(v.string(), "#000000"),
-			buttonForegroundColor: v.nullish(v.string(), "#FFF")
+			buttonForegroundColor: v.nullish(v.string(), "#FFF"),
+			cardFont: v.object({
+				baseline_ratio: v.number(),
+				fallback_families: v.string(),
+				family: v.string(),
+				style: v.string(),
+				system: v.nullish(v.boolean()),
+				weight: v.string(),
+				variants: v.array(
+					v.object({
+						baseline_ratio: v.number(),
+						fallback_families: v.string(),
+						family: v.string(),
+						style: v.string(),
+						system: v.nullish(v.boolean()),
+						weight: v.string()
+					})
+				)
+			})
 		})
 	),
 	blocks: v.array(
