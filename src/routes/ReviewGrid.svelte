@@ -64,6 +64,7 @@
 		border-radius: 8px;
 		cursor: pointer;
 		transition: transform 0.2s ease;
+		container: review-item / inline-size;
 
 		&:hover {
 			.review-overlay {
@@ -125,37 +126,24 @@
 	}
 
 	.rating-score {
-		font-size: 1.5rem;
 		font-weight: bold;
 		color: #10b981;
 	}
 
 	.rating-total {
 		color: #d1d5db;
-		font-size: 1rem;
 	}
 
 	.description {
 		color: #f3f4f6;
 		line-height: 1.5;
-		font-size: 1.1rem;
 	}
 
-	@media (max-width: 768px) {
-		.review-overlay {
-			padding: 1rem;
-		}
+	.review-content {
+		font-size: 16px;
 
-		.review-name {
-			font-size: 1.1rem;
-		}
-
-		.rating-score {
-			font-size: 1.3rem;
-		}
-
-		.description {
-			font-size: 0.8rem;
+		@container review-item (width > 200px) {
+			font-size: 24px;
 		}
 	}
 </style>
