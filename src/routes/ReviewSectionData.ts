@@ -4,6 +4,8 @@ export const ReviewSectionDataSchema = v.object({
 	settings: v.nullish(
 		v.object({
 			monthlyRotationCount: v.nullish(v.number(), 6),
+			smallCardFontSize: v.nullish(v.string(), "16px"),
+			largeCardFontSize: v.nullish(v.string(), "24px"),
 			columnCount: v.nullish(v.number(), 3),
 			columnBreakPoint: v.nullish(v.string(), "600px"),
 			email: v.nullish(v.string()),

@@ -32,6 +32,8 @@
 
 <MasonryLayout
 	--switcher-target-container-width={reviewSectionData.settings?.columnBreakPoint ?? "600px"}
+	--smallCardFontSize={reviewSectionData.settings?.smallCardFontSize ?? "16px"}
+	--largeCardFontSize={reviewSectionData.settings?.largeCardFontSize ?? "24px"}
 	items={filteredBlocks}
 	columnCount={reviewSectionData.settings?.columnCount}
 >
@@ -140,10 +142,10 @@
 	}
 
 	.review-content {
-		font-size: 16px;
+		font-size: var(--smallCardFontSize);
 
-		@container review-item (width > 200px) {
-			font-size: 24px;
+		@container review-item (width > 300px) {
+			font-size: var(--largeCardFontSize);
 		}
 	}
 </style>
