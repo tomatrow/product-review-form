@@ -1,5 +1,31 @@
 import * as v from "valibot"
 
+const VideoSourceSchema = v.object({
+	format: v.picklist(["mov", "mp4", "m3u8"]),
+	height: v.number(),
+	mime_type: v.string(),
+	url: v.string(),
+	width: v.number()
+})
+
+const PreviewImageSchema = v.object({
+	aspect_ratio: v.number(),
+	height: v.number(),
+	width: v.number(),
+	src: v.string()
+})
+
+const VideoSchema = v.object({
+	id: v.number(),
+	alt: v.nullish(v.string()),
+	aspect_ratio: v.number(),
+	duration: v.number(),
+	media_type: v.literal("video"),
+	position: v.nullish(v.number()),
+	preview_image: v.nullish(PreviewImageSchema),
+	sources: v.array(VideoSourceSchema)
+})
+
 export const ReviewSectionDataSchema = v.object({
 	settings: v.nullish(
 		v.object({
@@ -41,6 +67,7 @@ export const ReviewSectionDataSchema = v.object({
 			type: v.string(),
 			settings: v.object({
 				image: v.nullish(v.string()),
+				video: v.nullish(VideoSchema),
 				rating: v.nullish(v.number()),
 				name: v.nullish(v.string()),
 				description: v.nullish(v.string())
