@@ -24,7 +24,11 @@
 
 			console.log("[product-review-form]", { reviewSectionData })
 		} catch (error) {
-			console.error("[product-review-form]", error)
+			if (error instanceof v.ValiError) {
+				console.error("[product-review-form]", error.message, error.issues)
+			} else {
+				console.error("[product-review-form]", error)
+			}
 		}
 	})
 

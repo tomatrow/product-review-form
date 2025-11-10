@@ -19,7 +19,7 @@
 
 	let filteredBlocks = $derived(
 		getMonthlyItems(
-			reviewSectionData.blocks.filter((block) => block.settings.image),
+			reviewSectionData.blocks.filter((block) => block.settings.image || block.settings.video),
 			reviewSectionData.settings?.monthlyRotationCount ?? 3
 		)
 	)
@@ -40,23 +40,50 @@
 >
 	{#snippet cell(block)}
 		<div class="review-item">
-			<img
-				src={normalizeUrl(block.settings.image!)}
-				alt={block.settings.name}
-				class="review-image"
-			/>
-			<div class="review-overlay">
-				<div class="review-content">
-					<h5 class="review-name">{block.settings.name}</h5>
-					<div class="rating">
-						<span class="rating-score">{block.settings.rating}</span>
-						<span class="rating-total">/5</span>
-					</div>
-					<div class="description">
-						{@html block.settings.description}
+			{#if block.settings.video}
+				<!-- svelte-ignore a11y_media_has_caption -->
+				<video
+					playsinline
+					preload="metadata"
+					aria-label={block.settings.video.alt ?? block.settings.name}
+					poster={block.settings.video.preview_image?.src ?
+						normalizeUrl(block.settings.video.preview_image.src)
+					:	undefined}
+					class="review-video"
+					controls
+					style:--aspect-ratio={block.settings.video.aspect_ratio}
+				>
+					{#if block.settings.video.preview_image?.src}
+						<img
+							src={normalizeUrl(block.settings.video.preview_image.src)}
+							alt={block.settings.video.alt ?? block.settings.name}
+						/>
+					{/if}
+					{#each block.settings.video.sources as source}
+						<source src={normalizeUrl(source.url)} type={source.mime_type} />
+					{/each}
+				</video>
+			{:else}
+				{#if block.settings.image}
+					<img
+						src={normalizeUrl(block.settings.image)}
+						alt={block.settings.name}
+						class="review-image"
+					/>
+				{/if}
+				<div class="review-overlay">
+					<div class="review-content">
+						<h5 class="review-name">{block.settings.name}</h5>
+						<div class="rating">
+							<span class="rating-score">{block.settings.rating}</span>
+							<span class="rating-total">/5</span>
+						</div>
+						<div class="description">
+							{@html block.settings.description}
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	{/snippet}
 </MasonryLayout>
@@ -91,6 +118,13 @@
 		&:hover {
 			transform: scale(1.02);
 		}
+	}
+
+	.review-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		aspect-ratio: var(--aspect-ratio);
 	}
 
 	.review-overlay {
